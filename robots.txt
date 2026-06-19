@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /privacidade.html
+Allow: /termos.html
+Allow: /cookies.html
+Disallow: /admin/
+Disallow: /*.js$
+Disallow: /*.css$
+
+Sitemap: https://evidencia-mora.vercel.app/sitemap.xml
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /

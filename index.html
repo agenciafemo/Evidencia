@@ -352,6 +352,19 @@ footer{background:var(--dark);border-top:1px solid var(--border);padding:48px;te
   </div>
 </div>
 
+<!-- COOKIE BANNER -->
+<div id="cookie-banner" style="position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--border);padding:20px 48px;z-index:99;display:none;box-shadow:0 -4px 20px rgba(0,0,0,0.3);backdrop-filter:blur(10px);">
+  <div style="max-width:1200px;margin:0 auto;display:flex;gap:24px;align-items:center;justify-content:space-between;flex-wrap:wrap;">
+    <div>
+      <p style="font-size:14px;color:var(--sand);line-height:1.6;margin-bottom:8px;">Nós utilizamos cookies para melhorar sua experiência no site. Ao continuar navegando, você concorda com nossa <a href="/privacidade.html" style="color:var(--amber2);text-decoration:underline;">Política de Privacidade</a> e <a href="/termos.html" style="color:var(--amber2);text-decoration:underline;">Termos de Uso</a>.</p>
+    </div>
+    <div style="display:flex;gap:12px;flex-shrink:0;">
+      <button id="reject-cookies" style="background:transparent;border:1px solid var(--border);color:var(--sand);padding:10px 20px;border-radius:4px;cursor:none;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:600;">Rejeitar</button>
+      <button id="accept-cookies" style="background:var(--amber);color:var(--ink);border:none;padding:10px 20px;border-radius:4px;cursor:none;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:600;">Aceitar</button>
+    </div>
+  </div>
+</div>
+
 <!-- WHATSAPP FLUTUANTE -->
 <a href="https://wa.me/5548999999999?text=Olá%20Fernanda!%20Gostaria%20de%20agendar%20uma%20sessão%20gratuita%20para%20conhecer%20o%20método%20EVIDÊNCIA™" target="_blank" style="text-decoration:none;">
   <button class="whatsapp-btn">
@@ -687,10 +700,17 @@ footer{background:var(--dark);border-top:1px solid var(--border);padding:48px;te
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-name">Fernanda Moro <span>·</span> EVIDÊNCIA™</div>
+  <div class="footer-name">EVIDÊNCIA<span>™</span></div>
   <div class="footer-div"></div>
   <div class="footer-tag">Human to Human Marketing · Posicionamento, Essência e Valor</div>
   <div class="footer-loc">Agência FEMO · Criciúma — SC</div>
+  <div style="display:flex;gap:20px;justify-content:center;margin-top:24px;font-size:12px;color:var(--mid);flex-wrap:wrap;">
+    <a href="/privacidade.html" style="color:var(--mid);text-decoration:none;transition:color .2s;cursor:none;">Política de Privacidade</a>
+    <span>·</span>
+    <a href="/termos.html" style="color:var(--mid);text-decoration:none;transition:color .2s;cursor:none;">Termos de Uso</a>
+    <span>·</span>
+    <a href="/cookies.html" style="color:var(--mid);text-decoration:none;transition:color .2s;cursor:none;">Política de Cookies</a>
+  </div>
 </footer>
 
 <script>
@@ -1010,6 +1030,27 @@ dots.forEach(d=>d.onclick=()=>goTo(+d.dataset.i,+d.dataset.i>cur?1:-1));
 let auto=setInterval(()=>goTo(cur+1,1),5500);
 document.querySelector('.testi-sec').addEventListener('mouseenter',()=>clearInterval(auto));
 document.querySelector('.testi-sec').addEventListener('mouseleave',()=>{auto=setInterval(()=>goTo(cur+1,1),5500);});
+
+// COOKIE CONSENT
+const cookieBanner=document.getElementById('cookie-banner');
+const acceptBtn=document.getElementById('accept-cookies');
+const rejectBtn=document.getElementById('reject-cookies');
+
+if(!localStorage.getItem('cookieConsent')){
+  cookieBanner.style.display='flex';
+}
+
+acceptBtn.onclick=()=>{
+  localStorage.setItem('cookieConsent','accepted');
+  cookieBanner.style.display='none';
+  console.log('Cookies aceitos');
+};
+
+rejectBtn.onclick=()=>{
+  localStorage.setItem('cookieConsent','rejected');
+  cookieBanner.style.display='none';
+  console.log('Cookies rejeitados');
+};
 
 // EXPANDABLE TESTIMONIALS
 const modal=document.getElementById('modal-testi');
