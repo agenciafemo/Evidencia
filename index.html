@@ -79,16 +79,19 @@ nav{position:sticky;top:0;z-index:100;padding:0 48px;height:68px;display:flex;al
 .video-sec{padding:40px 48px 80px;max-width:1100px;margin:0 auto;}
 .video-label{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--amber);text-align:center;margin-bottom:20px;}
 .video-wrap{position:relative;width:100%;padding-bottom:52%;background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;}
-.video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none;border-radius:16px;}
-.video-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;cursor:pointer;transition:background .2s;}
-.video-placeholder:hover .play-ring{transform:scale(1.07);}
+.video-playbtn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:opacity .2s;z-index:1;}
+.video-playbtn:hover .play-ring{transform:scale(1.07);}
 .play-ring{width:72px;height:72px;border-radius:50%;background:var(--amber);display:flex;align-items:center;justify-content:center;transition:transform .2s,background .2s;}
 .play-ring:hover{background:var(--amber2);}
 .play-ring i{font-size:26px;color:var(--ink);margin-left:4px;}
-.video-hint{font-size:12px;color:var(--mid);letter-spacing:0.1em;text-transform:uppercase;}
-.video-corners .c{position:absolute;width:28px;height:28px;}
+.video-corners .c{position:absolute;width:28px;height:28px;z-index:2;}
 .video-corners .tl{top:0;left:0;border-top:2px solid var(--amber);border-left:2px solid var(--amber);border-radius:16px 0 0 0;}
 .video-corners .br{bottom:0;right:0;border-bottom:2px solid var(--amber);border-right:2px solid var(--amber);border-radius:0 0 16px 0;}
+.video-sound-btn{position:absolute;right:16px;bottom:16px;width:44px;height:44px;border-radius:50%;background:var(--amber);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .2s,background .2s;z-index:2;}
+.video-sound-btn:hover{transform:scale(1.07);background:var(--amber2);}
+.video-sound-btn i{font-size:20px;color:var(--ink);}
+.video-speed-btn{position:absolute;left:16px;bottom:16px;height:36px;padding:0 14px;border-radius:18px;background:rgba(20,20,20,0.55);backdrop-filter:blur(6px);border:1px solid var(--border);color:var(--sand);font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:transform .2s,background .2s,border-color .2s;z-index:2;}
+.video-speed-btn:hover{transform:scale(1.07);background:var(--amber);color:var(--ink);border-color:var(--amber);}
 
 /* STATS */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
@@ -366,7 +369,7 @@ footer{background:var(--dark);border-top:1px solid var(--border);padding:48px;te
 </div>
 
 <!-- WHATSAPP FLUTUANTE -->
-<a href="https://wa.me/5548999999999?text=Olá%20Fernanda!%20Gostaria%20de%20agendar%20uma%20sessão%20gratuita%20para%20conhecer%20o%20método%20EVIDÊNCIA™" target="_blank" style="text-decoration:none;">
+<a href="https://wa.me/554891282150?text=Olá%20Fernanda!%20Gostaria%20de%20agendar%20uma%20sessão%20gratuita%20para%20conhecer%20o%20método%20EVIDÊNCIA™" target="_blank" style="text-decoration:none;">
   <button class="whatsapp-btn">
     <i class="ti ti-brand-whatsapp"></i>
     <div class="whatsapp-label">Fale conosco</div>
@@ -389,7 +392,7 @@ footer{background:var(--dark);border-top:1px solid var(--border);padding:48px;te
     <h1 class="hero-h1 reveal delay1">
       Transforme sua<br>reputação em<br><em>percepção de valor</em>
     </h1>
-    <p class="hero-sub reveal delay2">O EVIDÊNCIA™ é o método que converte a sua competência clínica em autoridade digital inquestionável — para que o paciente premium encontre você antes de agendar.</p>
+    <p class="hero-sub reveal delay2">O EVIDÊNCIA™ é o método que converte a sua competência clínica em autoridade digital inquestionável, para que o paciente premium encontre você antes de agendar.</p>
     <div class="hero-btns reveal delay3">
       <a href="#sessao" style="text-decoration:none;"><button class="btn-primary"><i class="ti ti-arrow-right"></i>Aplicar agora</button></a>
       <a href="#metodologia" style="text-decoration:none;"><button class="btn-ghost">Ver o método</button></a>
@@ -409,7 +412,7 @@ footer{background:var(--dark);border-top:1px solid var(--border);padding:48px;te
       <div class="feat-icon"><i class="ti ti-eye"></i></div>
       <div>
         <h3>Percepção de valor</h3>
-        <p>O paciente premium decide antes do primeiro contato — com base no que encontra sobre você.</p>
+        <p>O paciente premium decide antes do primeiro contato, com base no que encontra sobre você.</p>
       </div>
     </div>
     <div class="feat-card">
@@ -437,10 +440,21 @@ footer{background:var(--dark);border-top:1px solid var(--border);padding:48px;te
       <div class="c tl"></div>
       <div class="c br"></div>
     </div>
-    <div class="video-placeholder" id="vp">
+    <mux-player
+      id="evidenciaVideo"
+      playback-id="Nx011MzgMcK8ZmBU00nm6CyiGaSTyOSpj4nmQ00L01pSOyg"
+      metadata-video-title="EVIDENCIAS"
+      stream-type="on-demand"
+      muted
+      style="position:absolute;inset:0;width:100%;height:100%;--controls:none;--media-object-fit:cover;"
+    ></mux-player>
+    <div class="video-playbtn" id="videoPlayBtn">
       <div class="play-ring"><i class="ti ti-player-play"></i></div>
-      <div class="video-hint">Assistir apresentação</div>
     </div>
+    <button class="video-sound-btn" id="videoSoundBtn" aria-label="Ativar som" type="button">
+      <i class="ti ti-volume-off"></i>
+    </button>
+    <button class="video-speed-btn" id="videoSpeedBtn" aria-label="Velocidade de reprodução" type="button">1x</button>
   </div>
 </div>
 
@@ -453,17 +467,17 @@ footer{background:var(--dark);border-top:1px solid var(--border);padding:48px;te
     <div class="why-card">
       <span class="why-num">01</span>
       <h3>Nivelamento por baixo</h3>
-      <p>Sem posicionamento claro, você compete por preço com quem tem menos técnica — mas mais tráfego pago.</p>
+      <p>Sem posicionamento claro, você compete por preço com quem tem menos técnica, mas mais tráfego pago.</p>
     </div>
     <div class="why-card">
       <span class="why-num">02</span>
       <h3>Ativos sem narrativa</h3>
-      <p>Instagram, site e Google ativos mas sem uma mensagem central coerente são custos — não investimentos.</p>
+      <p>Instagram, site e Google ativos mas sem uma mensagem central coerente são custos, não investimentos.</p>
     </div>
     <div class="why-card">
       <span class="why-num">03</span>
       <h3>Quebra de confiança</h3>
-      <p>O paciente premium pesquisa. Qualquer desalinhamento entre o que você fala e o que ele encontra — aborta a decisão.</p>
+      <p>O paciente premium pesquisa. Qualquer desalinhamento entre o que você fala e o que ele encontra aborta a decisão.</p>
     </div>
   </div>
   <div class="why-cta reveal">
@@ -490,7 +504,7 @@ footer{background:var(--dark);border-top:1px solid var(--border);padding:48px;te
       <div class="fq-bar"></div>
       <div>
         <div class="fq-text">"O posicionamento não é o que você diz sobre si mesmo. É o que o paciente conclui antes de você abrir a boca."</div>
-        <div class="fq-by">— Fernanda Moro, fundadora do Método EVIDÊNCIA™</div>
+        <div class="fq-by">Fernanda Moro, fundadora do Método EVIDÊNCIA™</div>
       </div>
     </div>
     <div class="formula-cta reveal">
@@ -504,12 +518,12 @@ footer{background:var(--dark);border-top:1px solid var(--border);padding:48px;te
   <div class="met-inner">
     <div class="sec-eyebrow reveal">O Ecossistema EVIDÊNCIA™</div>
     <h2 class="sec-title reveal delay1" style="text-align:left;">Seis etapas do diagnóstico<br>à <em>aquisição real</em></h2>
-    <p class="reveal delay2" style="font-size:15px;color:var(--mid);line-height:1.8;max-width:560px;">O método que Fernanda Moro desenhou com método — não com improviso.</p>
+    <p class="reveal delay2" style="font-size:15px;color:var(--mid);line-height:1.8;max-width:560px;">O método que Fernanda Moro desenhou com método, não com improviso.</p>
     <div class="met-grid">
       <div class="met-row reveal"><div class="met-n">01</div><div class="met-body"><h3>Diagnóstico de Presença</h3><p>Como você é percebido hoje. Mapeamento de pontos cegos vs. concorrência.</p></div><div class="met-tag">Raio-X EVIDÊNCIA™</div></div>
       <div class="met-row reveal delay1"><div class="met-n">02</div><div class="met-body"><h3>Identidade de Valor (IDV)</h3><p>Território estratégico, tom, pilares de autoridade e mensagem central.</p></div><div class="met-tag">Mapa IDV™</div></div>
       <div class="met-row reveal delay2"><div class="met-n">03</div><div class="met-body"><h3>Estrutura de Autoridade Digital</h3><p>Bio, Destaques, Google Meu Negócio, Site e fluxos de WhatsApp alinhados.</p></div><div class="met-tag">Plano de Presença™</div></div>
-      <div class="met-row reveal"><div class="met-n">04</div><div class="met-body"><h3>Sistema de Conteúdo</h3><p>Pilares editoriais que atraem o paciente certo — sem postar às cegas.</p></div><div class="met-tag">Arquitetura Editorial™</div></div>
+      <div class="met-row reveal"><div class="met-n">04</div><div class="met-body"><h3>Sistema de Conteúdo</h3><p>Pilares editoriais que atraem o paciente certo, sem postar às cegas.</p></div><div class="met-tag">Arquitetura Editorial™</div></div>
       <div class="met-row reveal delay1"><div class="met-n">05</div><div class="met-body"><h3>Produção e Presença</h3><p>Direção criativa, roteiros, edição e publicação. Consultivo ou done-for-you.</p></div><div class="met-tag">Roteiros & Editorial</div></div>
       <div class="met-row reveal delay2"><div class="met-n">06</div><div class="met-body"><h3>Aquisição Estratégica</h3><p>SEO Local, Google e captação orgânica/paga para crescimento real de consultório.</p></div><div class="met-tag">Plano de Aquisição™</div></div>
     </div>
@@ -525,10 +539,10 @@ footer{background:var(--dark);border-top:1px solid var(--border);padding:48px;te
     <div class="sec-eyebrow reveal">O que você recebe</div>
     <h2 class="sec-title reveal delay1" style="text-align:left;">Tudo que o EVIDÊNCIA™ inclui</h2>
     <div class="inv-grid">
-      <div class="inv-item reveal"><div class="inv-check"><i class="ti ti-check"></i></div><span>Diagnóstico Estratégico de Presença — Raio-X EVIDÊNCIA™</span></div>
+      <div class="inv-item reveal"><div class="inv-check"><i class="ti ti-check"></i></div><span>Diagnóstico Estratégico de Presença: Raio-X EVIDÊNCIA™</span></div>
       <div class="inv-item reveal delay1"><div class="inv-check"><i class="ti ti-check"></i></div><span>Identidade de Valor e Posicionamento Médico</span></div>
       <div class="inv-item reveal delay2"><div class="inv-check"><i class="ti ti-check"></i></div><span>Narrativa Estratégica e Tom de Comunicação exclusivo</span></div>
-      <div class="inv-item reveal delay1"><div class="inv-check"><i class="ti ti-check"></i></div><span>Revisão estrutural — Instagram, Google e Site</span></div>
+      <div class="inv-item reveal delay1"><div class="inv-check"><i class="ti ti-check"></i></div><span>Revisão estrutural: Instagram, Google e Site</span></div>
       <div class="inv-item reveal delay2"><div class="inv-check"><i class="ti ti-check"></i></div><span>Arquitetura de Conteúdo e Calendário Editorial</span></div>
       <div class="inv-item reveal delay3"><div class="inv-check"><i class="ti ti-check"></i></div><span>Roteirização e Direcionamento Criativo de Vídeos</span></div>
       <div class="inv-item reveal"><div class="inv-check"><i class="ti ti-check"></i></div><span>Estratégia de Aquisição e Funil de Captação</span></div>
@@ -570,7 +584,7 @@ footer{background:var(--dark);border-top:1px solid var(--border);padding:48px;te
         </div>
       </div>
       <div class="ts-slide">
-        <p class="ts-q">"Pra mim a Femo foi e está sendo essencial. Cada dia precisamos acompanhar a tecnologia e fazer nosso conhecimento chegar às pessoas. Ter uma equipe engajada, proativa, criativa e que entenda seu perfil é muito importante — e por isso não largo a Fe."</p>
+        <p class="ts-q">"Pra mim a Femo foi e está sendo essencial. Cada dia precisamos acompanhar a tecnologia e fazer nosso conhecimento chegar às pessoas. Ter uma equipe engajada, proativa, criativa e que entenda seu perfil é muito importante, e por isso não largo a Fe."</p>
         <div class="ts-auth">
           <div class="ts-av">BG</div>
           <div>
@@ -581,7 +595,7 @@ footer{background:var(--dark);border-top:1px solid var(--border);padding:48px;te
         </div>
       </div>
       <div class="ts-slide">
-        <p class="ts-q">"Indico e confio muito no trabalho! Ótimo atendimento desde o primeiro contato — individualizam as ações para cada necessidade, sempre com qualidade e bom senso estético. Fernanda Moro, Marco e equipe ajudam muito na criação de conteúdo, direção e captação de vídeos."</p>
+        <p class="ts-q">"Indico e confio muito no trabalho! Ótimo atendimento desde o primeiro contato, individualizam as ações para cada necessidade, sempre com qualidade e bom senso estético. Fernanda Moro, Marco e equipe ajudam muito na criação de conteúdo, direção e captação de vídeos."</p>
         <div class="ts-auth">
           <div class="ts-av">GC</div>
           <div>
@@ -622,13 +636,12 @@ footer{background:var(--dark);border-top:1px solid var(--border);padding:48px;te
       </div>
     </div>
     <div class="cta-right">
-      <!-- Substitua # pelo link do seu formulário ou WhatsApp -->
-      <a href="#" style="text-decoration:none;width:100%;"><button class="btn-primary-lg"><i class="ti ti-arrow-right"></i>Aplicar para sessão gratuita</button></a>
-      <a href="#" style="text-decoration:none;width:100%;"><button class="btn-ghost-lg"><i class="ti ti-message"></i>Tirar uma dúvida antes</button></a>
+      <a href="https://wa.me/554891282150?text=Olá%20Fernanda!%20Quero%20aplicar%20para%20a%20sessão%20gratuita%20do%20método%20EVIDÊNCIA™" target="_blank" style="text-decoration:none;width:100%;"><button class="btn-primary-lg"><i class="ti ti-arrow-right"></i>Aplicar para sessão gratuita</button></a>
+      <a href="https://wa.me/554891282150?text=Olá%20Fernanda!%20Tenho%20uma%20dúvida%20sobre%20o%20método%20EVIDÊNCIA™" target="_blank" style="text-decoration:none;width:100%;"><button class="btn-ghost-lg"><i class="ti ti-message"></i>Tirar uma dúvida antes</button></a>
       <div class="cta-steps">
-        <div class="cta-step"><div class="cta-step-n">1</div><p><strong>Aplicação</strong> — preencha o formulário com sua especialidade</p></div>
-        <div class="cta-step"><div class="cta-step-n">2</div><p><strong>Análise prévia</strong> — Fernanda Moro pesquisa sua presença antes da reunião</p></div>
-        <div class="cta-step"><div class="cta-step-n">3</div><p><strong>Reunião individual</strong> — diagnóstico dos seus pontos cegos e o caminho premium</p></div>
+        <div class="cta-step"><div class="cta-step-n">1</div><p><strong>Aplicação:</strong> preencha o formulário com sua especialidade</p></div>
+        <div class="cta-step"><div class="cta-step-n">2</div><p><strong>Análise prévia:</strong> Fernanda Moro pesquisa sua presença antes da reunião</p></div>
+        <div class="cta-step"><div class="cta-step-n">3</div><p><strong>Reunião individual:</strong> diagnóstico dos seus pontos cegos e o caminho premium</p></div>
       </div>
     </div>
   </div>
@@ -655,7 +668,7 @@ footer{background:var(--dark);border-top:1px solid var(--border);padding:48px;te
           <div class="faq-icon"><i class="ti ti-chevron-down"></i></div>
         </div>
         <div class="faq-content">
-          <div class="faq-text">Sim. O método EVIDÊNCIA™ foi desenvolvido para qualquer médico que quer se posicionar como premium. Dermatologia, cirurgia, estética, clínica geral — a metodologia é universal, apenas o posicionamento é personalizado.</div>
+          <div class="faq-text">Sim. O método EVIDÊNCIA™ foi desenvolvido para qualquer médico que quer se posicionar como premium. Dermatologia, cirurgia, estética, clínica geral: a metodologia é universal, apenas o posicionamento é personalizado.</div>
         </div>
       </div>
       <div class="faq-item reveal">
@@ -664,7 +677,7 @@ footer{background:var(--dark);border-top:1px solid var(--border);padding:48px;te
           <div class="faq-icon"><i class="ti ti-chevron-down"></i></div>
         </div>
         <div class="faq-content">
-          <div class="faq-text">Não é obrigatório, mas recomendamos. Se você não tem nada, começamos do zero — desde a estratégia de criação até a estrutura. Se você já tem algo, otimizamos o que existe e alinhamos a narrativa.</div>
+          <div class="faq-text">Não é obrigatório, mas recomendamos. Se você não tem nada, começamos do zero, desde a estratégia de criação até a estrutura. Se você já tem algo, otimizamos o que existe e alinhamos a narrativa.</div>
         </div>
       </div>
       <div class="faq-item reveal">
@@ -673,7 +686,7 @@ footer{background:var(--dark);border-top:1px solid var(--border);padding:48px;te
           <div class="faq-icon"><i class="ti ti-chevron-down"></i></div>
         </div>
         <div class="faq-content">
-          <div class="faq-text">Não divulgamos valores de forma pública. A sessão gratuita é exatamente para discutir isso. Cada médico tem um contexto, especialidade e objetivo diferentes — o investimento é personalizado ao seu caso e à complexidade do projeto.</div>
+          <div class="faq-text">Não divulgamos valores de forma pública. A sessão gratuita é exatamente para discutir isso. Cada médico tem um contexto, especialidade e objetivo diferentes. O investimento é personalizado ao seu caso e à complexidade do projeto.</div>
         </div>
       </div>
       <div class="faq-item reveal">
@@ -691,7 +704,7 @@ footer{background:var(--dark);border-top:1px solid var(--border);padding:48px;te
           <div class="faq-icon"><i class="ti ti-chevron-down"></i></div>
         </div>
         <div class="faq-content">
-          <div class="faq-text">Discutimos os termos na sessão gratuita. Acreditamos em compromisso, mas entendemos que às vezes as prioridades mudam. Cada contrato tem seus próprios termos — tudo é muito transparente desde o início.</div>
+          <div class="faq-text">Discutimos os termos na sessão gratuita. Acreditamos em compromisso, mas entendemos que às vezes as prioridades mudam. Cada contrato tem seus próprios termos. Tudo é muito transparente desde o início.</div>
         </div>
       </div>
     </div>
@@ -703,7 +716,7 @@ footer{background:var(--dark);border-top:1px solid var(--border);padding:48px;te
   <div class="footer-name">EVIDÊNCIA<span>™</span></div>
   <div class="footer-div"></div>
   <div class="footer-tag">Human to Human Marketing · Posicionamento, Essência e Valor</div>
-  <div class="footer-loc">Agência FEMO · Criciúma — SC</div>
+  <div class="footer-loc">Agência FEMO · Criciúma, SC</div>
   <div style="display:flex;gap:20px;justify-content:center;margin-top:24px;font-size:12px;color:var(--mid);flex-wrap:wrap;">
     <a href="/privacidade.html" style="color:var(--mid);text-decoration:none;transition:color .2s;cursor:none;">Política de Privacidade</a>
     <span>·</span>
@@ -713,7 +726,51 @@ footer{background:var(--dark);border-top:1px solid var(--border);padding:48px;te
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@mux/mux-player@3.11.6/dist/mux-player.min.js"></script>
 <script>
+// VIDEO CONTROLS — play/pause, som e velocidade
+(function(){
+  const video=document.getElementById('evidenciaVideo');
+  const playBtn=document.getElementById('videoPlayBtn');
+  const soundBtn=document.getElementById('videoSoundBtn');
+  const speedBtn=document.getElementById('videoSpeedBtn');
+  if(!video||!playBtn||!soundBtn||!speedBtn)return;
+  const soundIcon=soundBtn.querySelector('i');
+  const playIcon=playBtn.querySelector('i');
+  const speeds=[1,1.5,2];
+  let speedIndex=0;
+
+  playBtn.addEventListener('click',()=>{
+    if(video.paused)video.play();else video.pause();
+  });
+  video.addEventListener('play',()=>{
+    playBtn.style.opacity='0';
+    playBtn.style.pointerEvents='none';
+  });
+  video.addEventListener('pause',()=>{
+    playBtn.style.opacity='1';
+    playBtn.style.pointerEvents='auto';
+    playIcon.className='ti ti-player-play';
+  });
+
+  soundBtn.addEventListener('click',()=>{
+    video.muted=!video.muted;
+    if(video.muted){
+      soundIcon.className='ti ti-volume-off';
+      soundBtn.setAttribute('aria-label','Ativar som');
+    }else{
+      soundIcon.className='ti ti-volume-3';
+      soundBtn.setAttribute('aria-label','Silenciar');
+    }
+  });
+
+  speedBtn.addEventListener('click',()=>{
+    speedIndex=(speedIndex+1)%speeds.length;
+    video.playbackRate=speeds[speedIndex];
+    speedBtn.textContent=speeds[speedIndex]+'x';
+  });
+})();
+
 // REVEAL
 const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('v');obs.unobserve(x.target);}}),{threshold:0.1});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
@@ -1004,11 +1061,6 @@ document.querySelectorAll('.faq-item').forEach(item=>{
   });
 });
 
-// VIDEO — troque SEU_VIDEO_ID pelo ID do YouTube
-document.getElementById('vp').addEventListener('click',function(){
-  this.innerHTML='<iframe src="https://www.youtube.com/embed/SEU_VIDEO_ID?autoplay=1" allow="autoplay;fullscreen" allowfullscreen style="border-radius:16px"></iframe>';
-});
-
 // CAROUSEL
 const slides=document.querySelectorAll('.ts-slide'),dots=document.querySelectorAll('.ts-dot'),counter=document.getElementById('counter');
 let cur=0,anim=false;
@@ -1059,8 +1111,8 @@ const modalContent=document.getElementById('modal-content');
 
 const testimonials=[
   {name:'Beatriz Castelar de Faria',clinic:'Clínica de Dermatologia',quote:'A Femo superou todas as minhas expectativas. É um prazer enorme trabalhar ao lado dela. A Fe já é um sucesso, mas tenho absoluta certeza de que vai alcançar voos ainda mais altos e longos. Com toda a minha admiração.',extra:'Desde que começamos a trabalhar com o Método EVIDÊNCIA™, minha presença online transformou completamente. Os pacientes agora chegam já qualificados e com percepção clara do valor do meu trabalho.'},
-  {name:'Beatriz Ghedin',clinic:'Clínica Elleva',quote:'Pra mim a Femo foi e está sendo essencial. Cada dia precisamos acompanhar a tecnologia e fazer nosso conhecimento chegar às pessoas. Ter uma equipe engajada, proativa, criativa e que entenda seu perfil é muito importante — e por isso não largo a Fe.',extra:'O diferencial foi a personalização. Não é um método engessado, é realmente customizado para cada especialidade e perfil de médico.'},
-  {name:'Gustavo Cunha',clinic:'Clínica CIAC',quote:'Indico e confio muito no trabalho! Ótimo atendimento desde o primeiro contato — individualizam as ações para cada necessidade, sempre com qualidade e bom senso estético. Fernanda Moro, Marco e equipe ajudam muito na criação de conteúdo, direção e captação de vídeos.',extra:'Recomendo fortemente. O impacto na quantidade e qualidade de pacientes que chegam foi imediato. Vale cada centavo investido.'}
+  {name:'Beatriz Ghedin',clinic:'Clínica Elleva',quote:'Pra mim a Femo foi e está sendo essencial. Cada dia precisamos acompanhar a tecnologia e fazer nosso conhecimento chegar às pessoas. Ter uma equipe engajada, proativa, criativa e que entenda seu perfil é muito importante, e por isso não largo a Fe.',extra:'O diferencial foi a personalização. Não é um método engessado, é realmente customizado para cada especialidade e perfil de médico.'},
+  {name:'Gustavo Cunha',clinic:'Clínica CIAC',quote:'Indico e confio muito no trabalho! Ótimo atendimento desde o primeiro contato, individualizam as ações para cada necessidade, sempre com qualidade e bom senso estético. Fernanda Moro, Marco e equipe ajudam muito na criação de conteúdo, direção e captação de vídeos.',extra:'Recomendo fortemente. O impacto na quantidade e qualidade de pacientes que chegam foi imediato. Vale cada centavo investido.'}
 ];
 
 slides.forEach((slide,i)=>{
